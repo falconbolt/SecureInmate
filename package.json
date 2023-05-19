@@ -1,0 +1,19 @@
+{
+  "name": "inmate-database-app",
+  "version": "1.0.0",
+  "description": "Inmate database Management application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2virtual/Inmate-database-app.git"
+  },
+  "author": "Olami",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/2virtual/Inmate-database-app/issues"
+  },
+  "homepage": "https://github.com/2virtual/Inmate-database-app#readme"
+}
