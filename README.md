@@ -29,7 +29,7 @@ The Inmate Database Management System is built using modern software development
 •	Relational Database Management System (RDBMS): MongoDB  
 •	Web Development: React.js, Express.js   
 •	Server-side Framework: Node.js  
-•	Security: secure protocols (HTTPS) and authentication mechanism (OAuth) 
+•	Security: secure protocols (HTTPS) and authentication mechanism (OAuth)     
 •	Data Storage: Cloud storage services (Heroku)   
 •	Version Control: Git    
 •	Collaboration Platform: GitHub  
