@@ -28,10 +28,10 @@ if (process.env.NODE_ENV === 'development') {
 
 
 // Route files
+const auth = require('./routes/auth');
 
-// const auth = require('./routes/auth');
-
-
+//mount routers  
+app.use('/api/v1/auth', auth);
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {
