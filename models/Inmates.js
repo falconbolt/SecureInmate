@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const InmateSchema = new mongoose.Schema(
   {
-    name: {
+    Inmate_name: {
       type: String,
       required: true,
     },
@@ -9,18 +10,18 @@ const InmateSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-     endDate: {
-      type: Date,
-      required: false,
-    },
-    isActive: {
-      type: String,
-      required: true,
-    },
+    //  endDate: {
+    //   type: Date,
+    //   required: false,
+    // },
+    // isActive: {
+    //   type: String,
+    //   required: true,
+    // },
      },
   { timestamps: true }
 );
 
-const Employee = mongoose.model('inmates', InmateSchema,'inmates');
+const Inmate = mongoose.model('inmates', InmateSchema,'inmates');
 
-module.exports = Employee;
+module.exports = Inmate;
