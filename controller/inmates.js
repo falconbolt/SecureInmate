@@ -1,8 +1,8 @@
 const path = require('path');
 const mongoose = require('mongoose');
 const ErrorResponse = require('../utils/errorResponse.js');
-const listDatesForThePastDays = require('../utils/pastDaysPicker.js');
-const GenerateCode = require('../utils/generateCode.js');
+const asyncHandler = require('../middleware/async.js');
+const User = require('../models/User');
 const Inmate = require('../models/Inmates');
 const toId = mongoose.Types.ObjectId;
 
@@ -11,38 +11,41 @@ const toId = mongoose.Types.ObjectId;
 //@acess Private
 exports.createNewInmate = asyncHandler(async (req, res, next) => {
   console.log(req.body);
-  var _id = req.params.id;
-  var name = req.body.name;
-  var facility_name = req.params.facility_name;
-  var offenceCat_id = toId(req.body.offenceCat);
-  console.log('request from front =>', req.body);
-  User.findOne({ _id: _id }, function (err, pool) {
+
+  const { inmate_name, offence_cartegory,id } = req.body;
+
+
+  try {
+    console.log('request from front =>', req.body);
+    const pool = await User.findOne({ id });
+
     console.log('pool content=>', pool);
-    if (err) {
-      console.log('err', err);
-      res.status(500).send(err);
-    } else {
-      //Generate unique number for new inmate
-      const d = new Date();
-      let year = d.getFullYear();
-      const { name } = pool;
-      const ItemCoded = `${facility_name.slice(0, 3)}-${year}-${GenerateCode(6)}`;
-
-      const inmate = new Inmate({
-        name: pool.name,
-        facility_name: facility_name,
-        email: pool.email,
-      });
-
-      console.log(`pool before save ${inmate}`);
-      inmate.save(function (err, pool) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('add inmate success');
-          res.send(pool);
-        }
-      });
+    
+    if (!pool) {
+      return res.status(404).json({ error: 'Pool not found' });
     }
-  });
+
+    // Generate unique number for new inmate
+    const d = new Date();
+    const year = d.getFullYear();
+    const { facility_name } = pool;
+    const InmateCoded = `${facility_name.slice(0, 3)}-${year}-${GenerateCode(6)}`;
+
+    const inmate = new Inmate({
+      inmate_name,
+      facility_name: pool.facility_name,
+      email: pool.email,
+      inmate_number: InmateCoded,
+    });
+
+    console.log(`pool before save ${inmate}`);
+    await inmate.save();
+
+    console.log('added inmate successfully!');
+    res.send(inmate);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
+

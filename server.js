@@ -29,9 +29,11 @@ if (process.env.NODE_ENV === 'development') {
 
 // Route files
 const auth = require('./routes/auth');
+const inmate = require('./routes/inmateRoute')
 
 //mount routers  
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/inmate', inmate);
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {

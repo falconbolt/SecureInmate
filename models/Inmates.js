@@ -10,14 +10,7 @@ const InmateSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    //  endDate: {
-    //   type: Date,
-    //   required: false,
-    // },
-    // isActive: {
-    //   type: String,
-    //   required: true,
-    // },
+ 
      },
   { timestamps: true }
 );
