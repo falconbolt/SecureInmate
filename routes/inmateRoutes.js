@@ -10,10 +10,10 @@ const {
     
 } = require('../controller/inmate');
 
-router.route('/create/:id').post(createNewEmployee);
-router.route('/update/:id/').post(updateInmate);
-router.route('/delete/:id').delete(deleteInmate);
-router.route('/detail/:id').get(getInmateDetail);
+ router.route('/create/:id').post(createNewInmate);
+// router.route('/update/:id/').post(updateInmate);
+// router.route('/delete/:id').delete(deleteInmate);
+// router.route('/detail/:id').get(getInmateDetail);
 
 
 module.exports = router;
