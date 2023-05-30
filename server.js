@@ -1,10 +1,12 @@
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser')
 const express = require('express');
 const connectDB = require('./config/db')
 const path = require('path');
-const fs =require('fs')
-const colors = require('colors')
+const fs =require('fs');
+const colors = require('colors');
+
 
 
 // Load env vars    
@@ -14,6 +16,9 @@ dotenv.config({path: `./config/config.env`})
 connectDB();
 
 const app = express();
+
+// cookie parser
+app.use(cookieParser())
 
 // Body parser
 app.use(express.json());
@@ -29,9 +34,15 @@ if (process.env.NODE_ENV === 'development') {
 
 // Route files
 const auth = require('./routes/auth');
+const authV2 = require('./routes/authV2');
+const inmate = require('./routes/inmateRoutes')
+const errorHandler =require('./middleware/error')
 
 //mount routers  
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/authV2', authV2);
+app.use('/api/v1/inmate', inmate);
+app.use(errorHandler);
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {
