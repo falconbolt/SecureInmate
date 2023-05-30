@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 const referalCodes = require('referral-codes');
 const User = require('../models/User');
+const ErrorResponse = require('../utils/errorResponse');
 
 
 // @desc    Register new user
@@ -73,29 +74,31 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc  Authenticate a user
-// @route  POST /api/users/login
+// Grant access to specific roles
+exports.authorize =(...roles)=>{
+  return (req,res,next)=>{
+    
+  }
+}
+
+// @desc    Forget password
+// @route   POST /api/v1/auth/forgotPassword
 // @access  Public
-// const loginUser = asyncHandler(async (req, res) => {
-//   const { email, password } = req.body;
-// console.log(password,email)
-//   // Check for user email
-//   const user = await User.findOne({ email });
-//   console.log('user:', user);
-// console.log('user.password:', user.password);
-//   if (user && (await bcrypt.compare(password, user.password))) {
-//     console.log(user);
-//     res.json({
-//       _id: user.id,
-//       user_name: user.user_name,
-//       email: user.email,
-//       token: generateToken(user._id),
-//     });
-//   } else {
-//     res.status(400);
-//     throw new Error('Invalid credentials');
+
+// const forgotPassword = asyncHandler(async (req, res) => {
+//   const user = await User.findOne({email:req.body.email})
+//   if(!user){
+// return  next(new ErrorResponse('There is no user with that email',404))
 //   }
-// });
+
+//   // Get reset token
+// const resetToken=user.getResetPasswordToken()
+
+//   res.status(200).json({
+// success:true,
+// data:user
+//   })
+// })
 
 // Generate JWT
 const generateToken = (id) => {
